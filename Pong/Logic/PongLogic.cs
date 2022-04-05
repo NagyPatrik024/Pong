@@ -53,25 +53,27 @@ namespace Pong.Logic
         public double Angle { get; set; }
         public void TimeStamp()
         {
-            Random rnd = new Random();
             bool inside = Ball.Move(new System.Drawing.Size((int)area.Width, (int)area.Height));
             if (!inside)
             {
+                if (Ball.Center.Y <= area.Height)
                 {
-                    Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y);
-                    Changed?.Invoke(this, null);
+                    Ball.Speed = new Vector(Ball.Speed.X, Ball.Speed.Y * -1);
                 }
-            }
 
-            Rect asteroidRect = new Rect(Ball.Center.X - 12, Ball.Center.Y - 12, 25, 25);
-            Rect shipRect = new Rect(area.Width / 2 - 25, area.Height / 2 - 25, 50, 50);
-            if (asteroidRect.IntersectsWith(shipRect))
-            {
-                Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y * -1);
+                Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y);
                 Changed?.Invoke(this, null);
             }
 
-            if(Ball.Center.Y < area.Height / 25)
+            Rect ballRect = new Rect(Ball.Center.X - 2, Ball.Center.Y - 2, 5, 5);
+            Rect platformRect = new Rect((area.Width / 2 - 25) + Position, area.Height - 30, 100, 25);
+            if (ballRect.IntersectsWith(platformRect))
+            {
+                Ball.Speed = new Vector(Ball.Speed.X, Ball.Speed.Y * -1);
+                Changed?.Invoke(this, null);
+            }
+
+            if (Ball.Center.Y > area.Height)
             {
                 GameOver?.Invoke(this, null);
             }
