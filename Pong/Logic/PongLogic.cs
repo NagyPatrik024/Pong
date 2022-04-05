@@ -57,7 +57,7 @@ namespace Pong.Logic
             bool inside = Ball.Move(new System.Drawing.Size((int)area.Width, (int)area.Height));
             if (!inside)
             {
-                this.Ball.Speed = new Vector(Ball.Speed.X * -1 * rnd.Next(0,2), Ball.Speed.Y * -1 * rnd.Next(0, 2));
+                this.Ball.Speed = new Vector(Ball.Speed.X * -1 * rnd.NextDouble() + (1 + rnd.NextDouble()), Ball.Speed.Y * -1 * rnd.NextDouble() +(1 + rnd.NextDouble()));
                 Changed?.Invoke(this, null);
             }
 
@@ -65,7 +65,7 @@ namespace Pong.Logic
             Rect shipRect = new Rect(area.Width / 2 - 25, area.Height / 2 - 25, 50, 50);
             if (asteroidRect.IntersectsWith(shipRect))
             {
-                Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y * -1);
+                Ball.Speed = new Vector(Ball.Speed.X * -1 * rnd.NextDouble() + (1 + rnd.NextDouble()), Ball.Speed.Y * -1 * rnd.NextDouble() + (1 + rnd.NextDouble()));
                 Changed?.Invoke(this, null);
             }
 
