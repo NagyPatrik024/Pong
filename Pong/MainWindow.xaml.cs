@@ -22,7 +22,7 @@ namespace Pong
     /// </summary>
     public partial class MainWindow : Window
     {
-        PlatformLogic logic;
+        PongLogic logic;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,21 +32,21 @@ namespace Pong
         {
             if (e.Key == Key.Left)
             {
-                logic.Control(PlatformLogic.Controls.Left);
+                logic.Control(PongLogic.Controls.Left);
             }
             else if (e.Key == Key.Right)
             {
-                logic.Control(PlatformLogic.Controls.Right);
+                logic.Control(PongLogic.Controls.Right);
             }
         }
         private void Dt_Tick(object? sender, EventArgs e)
         {
-            //logic.TimeStep();
+            logic.TimeStamp();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            logic = new PlatformLogic();
+            logic = new PongLogic();
             logic.GameOver += Logic_GameOver;
             display.SetupModel(logic);
 
@@ -69,7 +69,11 @@ namespace Pong
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-
+            if (logic != null)
+            {
+                display.SetupSizes(new Size(grid.ActualWidth, grid.ActualHeight));
+                logic.SetupSizes(new System.Windows.Size((int)grid.ActualWidth, (int)grid.ActualHeight));
+            }
         }
     }
 }

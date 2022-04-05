@@ -35,8 +35,13 @@ namespace Pong.Renderer
                 drawingContext.DrawRectangle(Brushes.Black, new Pen(Brushes.Black, 0),
                   new Rect(0, 0, area.Width, area.Height));
 
-                drawingContext.PushTransform(new TranslateTransform((double)100, (double)0));
+               
+                drawingContext.PushTransform(new TranslateTransform(model.Position, (double)0));
+                drawingContext.DrawRectangle(Brushes.White, new Pen(Brushes.White, 3), new Rect(area.Width / 2 - 25, area.Height-30, 100, 25));
                 drawingContext.Pop();
+                drawingContext.DrawEllipse(Brushes.Red, null, new Point(model.Ball.Center.X, model.Ball.Center.Y), 5, 5);
+
+
             }
         }
     }
