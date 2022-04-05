@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Pong.Logic
 {
@@ -55,7 +56,16 @@ namespace Pong.Logic
             bool inside = Ball.Move(new System.Drawing.Size((int)area.Width, (int)area.Height));
             if (!inside)
             {
-                this.Ball = null;
+                this.Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y * -1);
+                Changed?.Invoke(this, null);
+            }
+
+            Rect asteroidRect = new Rect(Ball.Center.X - 12, Ball.Center.Y - 12, 25, 25);
+            Rect shipRect = new Rect(area.Width / 2 - 25, area.Height / 2 - 25, 50, 50);
+            if (asteroidRect.IntersectsWith(shipRect))
+            {
+                Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y * -1);
+                Changed?.Invoke(this, null);
             }
 
             Changed?.Invoke(this, null);
