@@ -56,12 +56,19 @@ namespace Pong.Logic
             bool inside = Ball.Move(new System.Drawing.Size((int)area.Width, (int)area.Height));
             if (!inside)
             {
-                if (Ball.Center.Y <= area.Height)
+                if (Ball.Center.Y >= area.Height)
                 {
                     Ball.Speed = new Vector(Ball.Speed.X, Ball.Speed.Y * -1);
                 }
+                else if(Ball.Center.X <= area.Width - area.Width)
+                {
+                    Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y);
+                }
+                else if (Ball.Center.X >= area.Width)
+                {
+                    Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y);
+                }
 
-                Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y);
                 Changed?.Invoke(this, null);
             }
 
@@ -73,7 +80,7 @@ namespace Pong.Logic
                 Changed?.Invoke(this, null);
             }
 
-            if (Ball.Center.Y > area.Height)
+            if (Ball.Center.Y <= 0)
             {
                 GameOver?.Invoke(this, null);
             }
