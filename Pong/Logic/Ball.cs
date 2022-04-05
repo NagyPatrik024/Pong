@@ -10,6 +10,7 @@ namespace Pong.Logic
     public class Ball
     {
         public System.Drawing.Point Center { get; set; }
+        public double Angle { get; set; }
         public Vector Speed { get; set; }
         static Random r = new Random();
 

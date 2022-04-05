@@ -22,7 +22,7 @@ namespace Pong.Logic
         {
             this.area = area;
             this.Ball = new Ball(new System.Windows.Size(area.Width, area.Height));
-            Platform = new Platform();
+            this.Platform = new Platform();
         }
 
         public PongLogic()
@@ -53,6 +53,7 @@ namespace Pong.Logic
         public double Angle { get; set; }
         public void TimeStamp()
         {
+            Random rnd = new Random();
             bool inside = Ball.Move(new System.Drawing.Size((int)area.Width, (int)area.Height));
             if (!inside)
             {
@@ -62,13 +63,18 @@ namespace Pong.Logic
                 }
             }
 
+            Rect asteroidRect = new Rect(Ball.Center.X - 12, Ball.Center.Y - 12, 25, 25);
+            Rect shipRect = new Rect(area.Width / 2 - 25, area.Height / 2 - 25, 50, 50);
+            if (asteroidRect.IntersectsWith(shipRect))
+            {
+                Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y * -1);
+                Changed?.Invoke(this, null);
+            }
 
-            //Rect asteroidRect = new Rect(Ball.Center.X - 12, Ball.Center.Y - 12, 25, 25);
-            //if (asteroidRect.IntersectsWith(shipRect))
-            //{
-            //    Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y * -1);
-            //    Changed?.Invoke(this, null);
-            //}
+            if(Ball.Center.Y < area.Height / 25)
+            {
+                GameOver?.Invoke(this, null);
+            }
 
             Changed?.Invoke(this, null);
         }
