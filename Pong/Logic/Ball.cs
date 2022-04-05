@@ -26,33 +26,26 @@ namespace Pong.Logic
 
         public Ball(Size area)
         {
-            int vel = r.Next(0, 4); //0..3
+            int vel = r.Next(0, 3); //0..3
             switch (vel)
             {
                 case 0:
                     //fent
                     Center = new System.Drawing.Point
                         (r.Next(25, (int)area.Width - 25), 25);
-
                     Speed = new Vector(Randomizer(-20, 20),
                         Randomizer(1, 6));
                     break;
                 case 1:
-                    //lent
-                    Center = new System.Drawing.Point(r.Next(25, (int)area.Width - 25)
-                        , (int)area.Height - 25);
-                    Speed = new Vector(Randomizer(-20, 20), Randomizer(-20, -1));
+                    //jobb
+                    Center = new System.Drawing.Point((int)area.Width - 25, r.Next(25, (int)area.Height - 25));
+                    Speed = new Vector(Randomizer(-20, -1), Randomizer(-20, 6));
                     break;
                 case 2:
                     //bal
                     Center = new System.Drawing.Point(25, r.Next(25,
                         (int)area.Height - 25));
                     Speed = new Vector(Randomizer(0, 20), Randomizer(-20, 20));
-                    break;
-                case 3:
-                    //jobb
-                    Center = new System.Drawing.Point((int)area.Width - 25, r.Next(25, (int)area.Height - 25));
-                    Speed = new Vector(Randomizer(-20, -1), Randomizer(-20, 6));
                     break;
                 default:
                     break;
@@ -65,8 +58,9 @@ namespace Pong.Logic
             System.Drawing.Point newCenter =
                 new System.Drawing.Point(Center.X + (int)Speed.X,
                 Center.Y + (int)Speed.Y);
-            if (newCenter.X >= 0 &&
-                newCenter.X <= area.Width &&
+            if (
+               newCenter.Y >= 0 &&
+                newCenter.Y <= area.Height &&
                 newCenter.Y >= 0 &&
                 newCenter.Y <= area.Height
                 )
@@ -81,5 +75,6 @@ namespace Pong.Logic
                 return false;
             }
         }
+       
     }
 }

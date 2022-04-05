@@ -50,27 +50,26 @@ namespace Pong.Logic
             }
             Changed?.Invoke(this, null);
         }
-
+        public double Angle { get; set; }
         public void TimeStamp()
         {
             Random rnd = new Random();
             bool inside = Ball.Move(new System.Drawing.Size((int)area.Width, (int)area.Height));
             if (!inside)
             {
-                if (this.Ball.Center.X < 0)
                 {
-                    this.Ball.Speed = new Vector(Ball.Speed.X * -1 * rnd.NextDouble() + (1 + rnd.NextDouble()), Ball.Speed.Y);
+                    Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y);
+                    Changed?.Invoke(this, null);
                 }
-                this.Ball.Speed = new Vector(Ball.Speed.X * -1 * rnd.NextDouble() + (1 + rnd.NextDouble()), Ball.Speed.Y * -1 * rnd.NextDouble() + (1 + rnd.NextDouble()));
-                Changed?.Invoke(this, null);
             }
 
             Rect asteroidRect = new Rect(Ball.Center.X - 12, Ball.Center.Y - 12, 25, 25);
-            //if (asteroidRect.IntersectsWith(shipRect))
-            //{
-            //    Ball.Speed = new Vector(Ball.Speed.X * -1 + rnd.NextDouble() + (1 + rnd.NextDouble()), Ball.Speed.Y * -1 + rnd.NextDouble() + (1 + rnd.NextDouble()));
-            //    Changed?.Invoke(this, null);
-            //}
+            Rect shipRect = new Rect(area.Width / 2 - 25, area.Height / 2 - 25, 50, 50);
+            if (asteroidRect.IntersectsWith(shipRect))
+            {
+                Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y * -1);
+                Changed?.Invoke(this, null);
+            }
 
             if (Ball.Center.Y < area.Height / 25)
             {

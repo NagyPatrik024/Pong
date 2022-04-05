@@ -10,7 +10,7 @@ namespace Pong.Logic
     {
         double Position { get; set; }
         event EventHandler Changed;
-
+        public double Angle { get; set; }
         Ball Ball { get; set; }
         Platform Platform { get; set; }
     }
