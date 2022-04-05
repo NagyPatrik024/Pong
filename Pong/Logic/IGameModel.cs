@@ -8,7 +8,7 @@ namespace Pong.Logic
 {
     internal interface IGameModel
     {
-        double Angle { get; set; }
+        double Position { get; set; }
         event EventHandler Changed;
 
         Ball Ball { get; set; }

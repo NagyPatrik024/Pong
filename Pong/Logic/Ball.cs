@@ -11,13 +11,54 @@ namespace Pong.Logic
     {
         public System.Drawing.Point Center { get; set; }
         public Vector Speed { get; set; }
-        public Ball(System.Drawing.Point center, Vector speed)
+        static Random r = new Random();
+
+        private int Randomizer(int min, int max)
         {
-            Center = center;
-            Speed = speed;
+            int rnd = 0;
+            do
+            {
+                rnd = r.Next(min, max + 1);
+            } while (rnd == 0);
+            return rnd;
         }
 
-        public bool GameOver(System.Drawing.Size area)
+        public Ball(Size area)
+        {
+            int vel = r.Next(0, 4); //0..3
+            switch (vel)
+            {
+                case 0:
+                    //fent
+                    Center = new System.Drawing.Point
+                        (r.Next(25, (int)area.Width - 25), 25);
+
+                    Speed = new Vector(Randomizer(-20, 20),
+                        Randomizer(1, 6));
+                    break;
+                case 1:
+                    //lent
+                    Center = new System.Drawing.Point(r.Next(25, (int)area.Width - 25)
+                        , (int)area.Height - 25);
+                    Speed = new Vector(Randomizer(-20, 20), Randomizer(-20, -1));
+                    break;
+                case 2:
+                    //bal
+                    Center = new System.Drawing.Point(25, r.Next(25,
+                        (int)area.Height - 25));
+                    Speed = new Vector(Randomizer(0, 20), Randomizer(-20, 20));
+                    break;
+                case 3:
+                    //jobb
+                    Center = new System.Drawing.Point((int)area.Width - 25, r.Next(25, (int)area.Height - 25));
+                    Speed = new Vector(Randomizer(-20, -1), Randomizer(-20, 6));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public bool Move(System.Drawing.Size area)
         {
             //hova kerülne a lépéskor a labda
             System.Drawing.Point newCenter =
