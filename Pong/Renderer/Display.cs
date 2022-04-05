@@ -1,11 +1,13 @@
 ﻿using Pong.Logic;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Pong.Renderer
 {
@@ -36,7 +38,6 @@ namespace Pong.Renderer
                 drawingContext.PushTransform(new TranslateTransform((double)100, (double)0));
                 drawingContext.Pop();
             }
-
         }
     }
 }
