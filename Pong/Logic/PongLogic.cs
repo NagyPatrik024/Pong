@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pong.Logic
 {
-    public class PlatformLogic : IGameModel
+    public class PongLogic : IGameModel
     {
         public double Position { get; set; }
         public Ball Ball { get; set; }
@@ -24,7 +24,7 @@ namespace Pong.Logic
             Platform = new Platform();
         }
 
-        public PlatformLogic()
+        public PongLogic()
         {
 
         }
