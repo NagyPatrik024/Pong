@@ -22,7 +22,7 @@ namespace Pong.Logic
         {
             this.area = area;
             this.Ball = new Ball(new System.Windows.Size(area.Width, area.Height));
-            Platform = new Platform();
+            this.Platform = new Platform();
         }
 
         public PongLogic()
@@ -65,8 +65,13 @@ namespace Pong.Logic
             Rect shipRect = new Rect(area.Width / 2 - 25, area.Height / 2 - 25, 50, 50);
             if (asteroidRect.IntersectsWith(shipRect))
             {
-                Ball.Speed = new Vector(Ball.Speed.X * -1 * rnd.NextDouble() + (1 + rnd.NextDouble()), Ball.Speed.Y * -1 * rnd.NextDouble() + (1 + rnd.NextDouble()));
+                Ball.Speed = new Vector(Ball.Speed.X * -1 + rnd.NextDouble() + (1 + rnd.NextDouble()), Ball.Speed.Y * -1 + rnd.NextDouble() + (1 + rnd.NextDouble()));
                 Changed?.Invoke(this, null);
+            }
+
+            if(Ball.Center.Y < area.Height / 25)
+            {
+                GameOver?.Invoke(this, null);
             }
 
             Changed?.Invoke(this, null);
