@@ -53,10 +53,11 @@ namespace Pong.Logic
 
         public void TimeStamp()
         {
+            Random rnd = new Random();
             bool inside = Ball.Move(new System.Drawing.Size((int)area.Width, (int)area.Height));
             if (!inside)
             {
-                this.Ball.Speed = new Vector(Ball.Speed.X * -1, Ball.Speed.Y * -1);
+                this.Ball.Speed = new Vector(Ball.Speed.X * -1 * rnd.Next(0,2), Ball.Speed.Y * -1 * rnd.Next(0, 2));
                 Changed?.Invoke(this, null);
             }
 
