@@ -17,7 +17,7 @@ namespace Pong.Logic
             Speed = speed;
         }
 
-        public bool GameOver(System.Drawing.Size area)
+        public bool Move(System.Drawing.Size area)
         {
             //hova kerülne a lépéskor a labda
             System.Drawing.Point newCenter =

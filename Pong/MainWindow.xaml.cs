@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pong.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace Pong
     /// </summary>
     public partial class MainWindow : Window
     {
-        //AsteroidsLogic logic;
+        PlatformLogic logic;
         public MainWindow()
         {
             InitializeComponent();
@@ -29,14 +30,14 @@ namespace Pong
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            //if (e.Key == Key.Left)
-            //{
-            //    logic.Control(AsteroidsLogic.Controls.Left);
-            //}
-            //else if (e.Key == Key.Right)
-            //{
-            //    logic.Control(AsteroidsLogic.Controls.Right);
-            //}
+            if (e.Key == Key.Left)
+            {
+                logic.Control(PlatformLogic.Controls.Left);
+            }
+            else if (e.Key == Key.Right)
+            {
+                logic.Control(PlatformLogic.Controls.Right);
+            }
         }
         private void Dt_Tick(object? sender, EventArgs e)
         {
@@ -45,9 +46,9 @@ namespace Pong
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //logic = new AsteroidsLogic();
-            //logic.GameOver += Logic_GameOver;
-            //display.SetupModel(logic);
+            logic = new PlatformLogic();
+            logic.GameOver += Logic_GameOver;
+            display.SetupModel(logic);
 
             DispatcherTimer dt = new DispatcherTimer();
             dt.Interval = TimeSpan.FromMilliseconds(100);
@@ -55,7 +56,7 @@ namespace Pong
             dt.Start();
 
             display.SetupSizes(new Size(grid.ActualWidth, grid.ActualHeight));
-            //logic.SetupSizes(new System.Windows.Size((int)grid.ActualWidth, (int)grid.ActualHeight));
+            logic.SetupSizes(new System.Windows.Size((int)grid.ActualWidth, (int)grid.ActualHeight));
         }
         private void Logic_GameOver(object? sender, EventArgs e)
         {
